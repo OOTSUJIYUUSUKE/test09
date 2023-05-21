@@ -1,4 +1,4 @@
-package com.example.MyBatisDemo.exception_handler;
+package com.example.MyBatisDemo.exceptionHandler;
 
 public class BadRequestException extends RuntimeException{
 
