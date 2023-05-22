@@ -14,7 +14,7 @@ import lombok.Setter;
 public class AnimeMoviesForm {
     private int id;
     @NotBlank(message = "Nullもしくは空白文字です。")
-    @Length(min = 1, max = 100, message = "100文字以内で入力してください。")
+    @Length(min = 1, max = 30, message = "30文字以内で入力してください。")
     private String title;
     @NotBlank(message = "Nullもしくは空白文字です。")
     @Length(min = 1, max = 4, message = "4文字以内で入力してください。")

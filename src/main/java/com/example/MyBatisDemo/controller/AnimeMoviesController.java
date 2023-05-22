@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@RequestMapping("/animeMovies")
 @RestController
 public class AnimeMoviesController {
     private final AnimeMoviesService animeMoviesService;
@@ -48,43 +49,43 @@ public class AnimeMoviesController {
         );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/animeMoviesAll")
+    @GetMapping("/All")
     public List<AnimeMoviesResponse> findAll() {
         return animeMoviesService.findAll().stream().map(AnimeMoviesResponse::new).toList();
     }
-    @GetMapping("/animeMoviesId")
+    @GetMapping("/id")
     public List<AnimeMoviesResponse> findById(@RequestParam(value = "id") int id) {
         Optional<AnimeMoviesForm> animeMovies = Optional.ofNullable(animeMoviesService.findById(id));
         return animeMovies.stream().map(AnimeMoviesResponse::new).toList();
     }
-    @GetMapping("/animeMoviesPublishedYear")
+    @GetMapping("/publishedYear")
     public List<AnimeMoviesResponse> findByPublishedYear(@RequestParam(value = "publishedYear") String publishedYear) {
         Optional<AnimeMoviesForm> animeMovies = Optional.ofNullable(animeMoviesService.findByPublishedYear(publishedYear));
         return animeMovies.stream().map(AnimeMoviesResponse::new).toList();
     }
-    @PostMapping("/animeMovies")
+    @PostMapping()
     public ResponseEntity<Map<String, String>> createAnimeMovies(@RequestBody @Validated AnimeMoviesForm NewAnimeMovies, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
         ModelMapper modelMapper = new ModelMapper();
         AnimeMoviesForm conversionAnimeMovies = modelMapper.map(NewAnimeMovies, AnimeMoviesForm.class);
         AnimeMoviesForm animeMovies = animeMoviesService.create(conversionAnimeMovies, bindingResult);
-        URI url = uriComponentsBuilder.path("/animeMovies/" + animeMovies.getId())
+        URI url = uriComponentsBuilder.path("/animeMovies/id/" + animeMovies.getId())
                 .build()
                 .toUri();
-        return ResponseEntity.created(url).body(Map.of("message", "NewAnimeMovies successfully create"));
+        return ResponseEntity.created(url).body(Map.of("message", "new anime movie successfully create"));
     }
-    @PatchMapping("/animeMovies/{id}")
+    @PatchMapping("/id/{id}")
     public ResponseEntity<Map<String, String>> patchAnimeMovies(@PathVariable("id")int id, @RequestBody @Validated AnimeMoviesForm NewAnimeMovies, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
         ModelMapper modelMapper = new ModelMapper();
         AnimeMoviesForm conversionAnimeMovies = modelMapper.map(NewAnimeMovies, AnimeMoviesForm.class);
         animeMoviesService.update(id, conversionAnimeMovies, bindingResult);
-        URI url = uriComponentsBuilder.path("/animeMovies/" + conversionAnimeMovies.getPublishedYear())
+        URI url = uriComponentsBuilder.path("/animeMovies/id/" + id)
                 .build()
                 .toUri();
-        return ResponseEntity.created(url).body(Map.of("message", "the animeMovie successfully update"));
+        return ResponseEntity.created(url).body(Map.of("message", "the anime movie successfully update"));
     }
-    @DeleteMapping("/animeMovies/{id}")
+    @DeleteMapping("/id/{id}")
     public ResponseEntity<Map<String, String>> deleteAnimeMovies(@PathVariable("id")int id) {
         animeMoviesService.delete(id);
-        return ResponseEntity.ok(Map.of("message", "the animeMovie successfully delete"));
+        return ResponseEntity.ok(Map.of("message", "the anime movie successfully delete"));
     }
 }

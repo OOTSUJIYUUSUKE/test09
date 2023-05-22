@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3307/test-anime-movies
+    url: jdbc:mysql://localhost:3307/animeMovies
     username: user
     password: password

@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS animeMovies;
 
 CREATE TABLE animeMovies (
   id int unsigned AUTO_INCREMENT,
-  title VARCHAR(100) NOT NULL,
+  title VARCHAR(30) NOT NULL,
   publishedYear VARCHAR(4) NOT NULL,
   PRIMARY KEY(id)
 );
