@@ -1,4 +1,4 @@
-package com.example.MyBatisDemo.exceptionHandler;
+package com.example.MyBatisDemo.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

@@ -1,12 +1,8 @@
 package com.example.MyBatisDemo.controller;
 
 import com.example.MyBatisDemo.entity.AnimeMoviesForm;
-import com.example.MyBatisDemo.exceptionHandler.BadRequestException;
-import com.example.MyBatisDemo.exceptionHandler.ResourceNotFoundException;
 import com.example.MyBatisDemo.service.AnimeMoviesService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,36 +22,15 @@ public class AnimeMoviesController {
     public AnimeMoviesController(AnimeMoviesService animeMoviesService) {
         this.animeMoviesService = animeMoviesService;
     }
-    @ExceptionHandler(value = BadRequestException.class)
-    public ResponseEntity<Map<String, String>> handleBadRequest(BadRequestException e, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().toString(),
-                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", e.getMessage(),
-                "path", request.getRequestURI()
-        );
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleNotResourceFound(ResourceNotFoundException e, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().toString(),
-                "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
-                "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
-                "message", e.getMessage(),
-                "path", request.getRequestURI()
-        );
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-    }
+
     @GetMapping("/All")
     public List<AnimeMoviesResponse> findAll() {
         return animeMoviesService.findAll().stream().map(AnimeMoviesResponse::new).toList();
     }
     @GetMapping("/id")
-    public List<AnimeMoviesResponse> findById(@RequestParam(value = "id") int id) {
-        Optional<AnimeMoviesForm> animeMovies = Optional.ofNullable(animeMoviesService.findById(id));
-        return animeMovies.stream().map(AnimeMoviesResponse::new).toList();
+    public AnimeMoviesForm findById(@RequestParam(value = "id") int id) {
+        AnimeMoviesForm animeMovie = animeMoviesService.findById(id);
+        return animeMovie;
     }
     @GetMapping("/publishedYear")
     public List<AnimeMoviesResponse> findByPublishedYear(@RequestParam(value = "publishedYear") String publishedYear) {

@@ -1,8 +1,7 @@
 package com.example.MyBatisDemo.service;
 
 import com.example.MyBatisDemo.entity.AnimeMoviesForm;
-import com.example.MyBatisDemo.exceptionHandler.BadRequestException;
-import com.example.MyBatisDemo.exceptionHandler.ResourceNotFoundException;
+import com.example.MyBatisDemo.exception.ResourceNotFoundException;
 import com.example.MyBatisDemo.mapper.AnimeMoviesMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class AnimeMoviesServiceImpl implements AnimeMoviesService {
     @Override
     public AnimeMoviesForm create(AnimeMoviesForm conversionAnimeMovies, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new BadRequestException("bad request");
+            throw new ResourceNotFoundException("resource not found");
         }
         animeMoviesMapper.insert(conversionAnimeMovies);
         return conversionAnimeMovies;
@@ -40,7 +39,7 @@ public class AnimeMoviesServiceImpl implements AnimeMoviesService {
     @Override
     public void update(int id, AnimeMoviesForm conversionAnimeMovies, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new BadRequestException("bad request");
+            throw new ResourceNotFoundException("resource not found");
         }
         animeMoviesMapper.update(id, conversionAnimeMovies);
     }
