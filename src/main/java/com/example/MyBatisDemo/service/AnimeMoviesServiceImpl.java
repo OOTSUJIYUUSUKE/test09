@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,9 +20,8 @@ public class AnimeMoviesServiceImpl implements AnimeMoviesService {
         return animeMoviesMapper.findAll();
     }
     @Override
-    public AnimeMoviesForm findByPublishedYear(String publishedYear) {
-        return this.animeMoviesMapper.findByPublishedYear(publishedYear)
-                .orElseThrow(() -> new ResourceNotFoundException("resource not found"));
+    public List<AnimeMoviesForm> findByPublishedYear(String publishedYear){
+            return this.animeMoviesMapper.findByPublishedYear(publishedYear);
     }
     @Override
     public AnimeMoviesForm findById(int id) {
@@ -31,7 +31,7 @@ public class AnimeMoviesServiceImpl implements AnimeMoviesService {
     @Override
     public AnimeMoviesForm create(AnimeMoviesForm conversionAnimeMovies, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new ResourceNotFoundException("resource not found");
+            throw new ResourceNotFoundException("not be validated");
         }
         animeMoviesMapper.insert(conversionAnimeMovies);
         return conversionAnimeMovies;
@@ -39,7 +39,7 @@ public class AnimeMoviesServiceImpl implements AnimeMoviesService {
     @Override
     public void update(int id, AnimeMoviesForm conversionAnimeMovies, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new ResourceNotFoundException("resource not found");
+            throw new ResourceNotFoundException("not be validated");
         }
         animeMoviesMapper.update(id, conversionAnimeMovies);
     }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,13 +29,14 @@ public class AnimeMoviesController {
         return animeMoviesService.findAll().stream().map(AnimeMoviesResponse::new).toList();
     }
     @GetMapping("/id")
-    public AnimeMoviesForm findById(@RequestParam(value = "id") int id) {
+    public AnimeMoviesResponse findById(@RequestParam(value = "id") int id) {
         AnimeMoviesForm animeMovie = animeMoviesService.findById(id);
-        return animeMovie;
+        AnimeMoviesResponse conversionAnimeMovies = new AnimeMoviesResponse(animeMovie);
+        return conversionAnimeMovies;
     }
     @GetMapping("/publishedYear")
     public List<AnimeMoviesResponse> findByPublishedYear(@RequestParam(value = "publishedYear") String publishedYear) {
-        Optional<AnimeMoviesForm> animeMovies = Optional.ofNullable(animeMoviesService.findByPublishedYear(publishedYear));
+        List<AnimeMoviesForm> animeMovies = animeMoviesService.findByPublishedYear(publishedYear);
         return animeMovies.stream().map(AnimeMoviesResponse::new).toList();
     }
     @PostMapping()

@@ -21,7 +21,7 @@
         FROM
         animeMovies
         WHERE
-        id = #{id}
+        id = #{id};
     </select>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.MyBatisDemo.entity.AnimeMoviesForm">
         INSERT INTO animeMovies (title, publishedYear)
@@ -31,15 +31,15 @@
         UPDATE animeMovies
         SET
         title = #{conversionAnimeMovies.title},
-        publishedYear = #{conversionAnimeMovies.publishedYear},
+        publishedYear = #{conversionAnimeMovies.publishedYear}
         WHERE
-        id = #{id}
+        id = #{id};
     </update>
     <delete id="delete">
         DELETE
         FROM
         animeMovies
         WHERE
-        id = #{id}
+        id = #{id};
     </delete>
 </mapper>

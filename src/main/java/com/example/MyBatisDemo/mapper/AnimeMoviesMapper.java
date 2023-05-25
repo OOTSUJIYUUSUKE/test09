@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface AnimeMoviesMapper {
     List<AnimeMoviesForm> findAll();
     Optional<AnimeMoviesForm> findById(int id);
-    Optional<AnimeMoviesForm> findByPublishedYear(String publishedYear);
+    List<AnimeMoviesForm> findByPublishedYear(String publishedYear);
     int insert(AnimeMoviesForm conversionAnimeMovies);
 
     void update(int id, AnimeMoviesForm conversionAnimeMovies);

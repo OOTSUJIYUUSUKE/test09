@@ -13,10 +13,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AnimeMoviesForm {
     private int id;
-    @NotBlank(message = "Nullもしくは空白文字です。")
-    @Length(min = 1, max = 30, message = "30文字以内で入力してください。")
+    @NotBlank
+    @Length(min = 1, max = 30)
     private String title;
-    @NotBlank(message = "Nullもしくは空白文字です。")
-    @Length(min = 1, max = 4, message = "4文字以内で入力してください。")
+    @NotBlank
+    @Length(min = 1, max = 4)
     private String publishedYear;
 }
