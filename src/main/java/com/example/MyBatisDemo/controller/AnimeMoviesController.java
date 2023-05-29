@@ -24,7 +24,7 @@ public class AnimeMoviesController {
         this.animeMoviesService = animeMoviesService;
     }
 
-    @GetMapping("/All")
+    @GetMapping("/all")
     public List<AnimeMoviesResponse> findAll() {
         return animeMoviesService.findAll().stream().map(AnimeMoviesResponse::new).toList();
     }
@@ -49,7 +49,7 @@ public class AnimeMoviesController {
                 .toUri();
         return ResponseEntity.created(url).body(Map.of("message", "new anime movie successfully create"));
     }
-    @PatchMapping("/id/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Map<String, String>> patchAnimeMovies(@PathVariable("id")int id, @RequestBody @Validated AnimeMoviesForm NewAnimeMovies, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
         ModelMapper modelMapper = new ModelMapper();
         AnimeMoviesForm conversionAnimeMovies = modelMapper.map(NewAnimeMovies, AnimeMoviesForm.class);
@@ -59,7 +59,7 @@ public class AnimeMoviesController {
                 .toUri();
         return ResponseEntity.created(url).body(Map.of("message", "the anime movie successfully update"));
     }
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteAnimeMovies(@PathVariable("id")int id) {
         animeMoviesService.delete(id);
         return ResponseEntity.ok(Map.of("message", "the anime movie successfully delete"));

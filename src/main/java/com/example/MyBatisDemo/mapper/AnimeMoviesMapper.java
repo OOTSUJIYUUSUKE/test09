@@ -12,8 +12,6 @@ public interface AnimeMoviesMapper {
     Optional<AnimeMoviesForm> findById(int id);
     List<AnimeMoviesForm> findByPublishedYear(String publishedYear);
     int insert(AnimeMoviesForm conversionAnimeMovies);
-
     void update(int id, AnimeMoviesForm conversionAnimeMovies);
-
     void delete(int id);
 }

@@ -1,22 +1,22 @@
 package com.example.MyBatisDemo.entity;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+
 
 @AllArgsConstructor
 @Getter
-@Setter
 @NoArgsConstructor
 public class AnimeMoviesForm {
     private int id;
     @NotBlank
-    @Length(min = 1, max = 30)
+    @Length(min = 1, max = 100)
     private String title;
     @NotBlank
-    @Length(min = 1, max = 4)
+    @Pattern(regexp= "^[0-9]{4}$")
     private String publishedYear;
 }
